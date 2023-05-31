@@ -36,7 +36,7 @@ def get_trends(api):
     return trends
 
 
-def get_tweets(topic, start_date, end_date=datetime.today().strftime("%Y-%m-%d"), limit=100):
+def get_tweets(topic, start_date, end_date=datetime.today().strftime("%Y-%m-%d"), limit=1000):
     twitter_dict = {"created_at": [], "id": [], "text": [], "screen_name": [], "name": [],
                     "retweet_count": [], "like_count": [], "quote_count": [], "view_count": [],
                     "user_created": [], "user_favourites_count": [], "user_followers_count": [],
@@ -45,7 +45,7 @@ def get_tweets(topic, start_date, end_date=datetime.today().strftime("%Y-%m-%d")
     for l, tweet in enumerate(sntwitter.TwitterSearchScraper(query).get_items(), 1):
         if l > limit:
             break
-        if l % 1000 == 0:
+        if l % 100 == 0:
             print("loading")
         twitter_dict["created_at"].append(tweet.date)
         twitter_dict["id"].append(tweet.id)
